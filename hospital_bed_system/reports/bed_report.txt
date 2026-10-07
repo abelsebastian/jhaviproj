@@ -1,0 +1,26 @@
+========================================
+       HOSPITAL BED REPORT
+  Generated at: 06:54 PM
+========================================
+
+Total Beds       : 64
+Available        : 27
+Occupied         : 25
+Cleaning         : 6
+Reserved         : 4
+Maintenance      : 2
+
+Availability Rate: 42.2%
+Occupancy Rate   : 39.1%
+
+----------------------------------------
+WARD-WISE AVAILABILITY
+----------------------------------------
+General Ward     : 8 / 20 available (40.0%)
+Emergency        : 3 / 8 available (37.5%)
+ICU              : 6 / 16 available (37.5%)
+Pediatric        : 3 / 6 available (50.0%)
+Surgical Ward    : 4 / 8 available (50.0%)
+Maternity        : 3 / 6 available (50.0%)
+
+========================================

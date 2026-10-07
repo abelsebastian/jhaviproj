@@ -1,0 +1,578 @@
+[
+  {
+    "bed_id": "G101",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G102",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G01",
+    "status": "OCCUPIED",
+    "patient_id": "P1001",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G103",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G104",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G02",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G105",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G02",
+    "status": "OCCUPIED",
+    "patient_id": "P1002",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G106",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G02",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G107",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G03",
+    "status": "OCCUPIED",
+    "patient_id": "P1003",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G108",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G03",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G109",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G03",
+    "status": "RESERVED",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G110",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G04",
+    "status": "OCCUPIED",
+    "patient_id": "P1004",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G111",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G04",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G112",
+    "ward": "General Ward",
+    "floor": 0,
+    "room": "G04",
+    "status": "MAINTENANCE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E201",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E202",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG01",
+    "status": "OCCUPIED",
+    "patient_id": "P1005",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E203",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E204",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG02",
+    "status": "OCCUPIED",
+    "patient_id": "P1006",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E205",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG02",
+    "status": "OCCUPIED",
+    "patient_id": "P1007",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E206",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG02",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E207",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG03",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "E208",
+    "ward": "Emergency",
+    "floor": 0,
+    "room": "EMG03",
+    "status": "OCCUPIED",
+    "patient_id": "P1008",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G201",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G11",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G202",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G11",
+    "status": "OCCUPIED",
+    "patient_id": "P1009",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G203",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G11",
+    "status": "OCCUPIED",
+    "patient_id": "P1010",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G204",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G12",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G205",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G12",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G206",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G12",
+    "status": "OCCUPIED",
+    "patient_id": "P1011",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G207",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G13",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "G208",
+    "ward": "General Ward",
+    "floor": 1,
+    "room": "G13",
+    "status": "RESERVED",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU301",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU302",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU01",
+    "status": "OCCUPIED",
+    "patient_id": "P1012",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU303",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU02",
+    "status": "OCCUPIED",
+    "patient_id": "P1013",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU304",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU02",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU305",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU03",
+    "status": "OCCUPIED",
+    "patient_id": "P1014",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU306",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU03",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU307",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU04",
+    "status": "OCCUPIED",
+    "patient_id": "P1015",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU308",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU04",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU309",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU05",
+    "status": "OCCUPIED",
+    "patient_id": "P1016",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU310",
+    "ward": "ICU",
+    "floor": 1,
+    "room": "ICU05",
+    "status": "MAINTENANCE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P401",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P402",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED01",
+    "status": "OCCUPIED",
+    "patient_id": "P1017",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P403",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED02",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P404",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED02",
+    "status": "OCCUPIED",
+    "patient_id": "P1018",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P405",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED03",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "P406",
+    "ward": "Pediatric",
+    "floor": 1,
+    "room": "PED03",
+    "status": "RESERVED",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S501",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S502",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR01",
+    "status": "OCCUPIED",
+    "patient_id": "P1019",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S503",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S504",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR02",
+    "status": "OCCUPIED",
+    "patient_id": "P1020",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S505",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR02",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S506",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR02",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S507",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR03",
+    "status": "OCCUPIED",
+    "patient_id": "P1021",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "S508",
+    "ward": "Surgical Ward",
+    "floor": 2,
+    "room": "SUR03",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M601",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT01",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M602",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT01",
+    "status": "OCCUPIED",
+    "patient_id": "P1022",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M603",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT02",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M604",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT02",
+    "status": "OCCUPIED",
+    "patient_id": "P1023",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M605",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT03",
+    "status": "CLEANING",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "M606",
+    "ward": "Maternity",
+    "floor": 2,
+    "room": "MAT03",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU311",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU06",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU312",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU06",
+    "status": "OCCUPIED",
+    "patient_id": "P1024",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU313",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU07",
+    "status": "OCCUPIED",
+    "patient_id": "P1025",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU314",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU07",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU315",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU08",
+    "status": "RESERVED",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  },
+  {
+    "bed_id": "ICU316",
+    "ward": "ICU",
+    "floor": 2,
+    "room": "ICU08",
+    "status": "AVAILABLE",
+    "patient_id": "-",
+    "last_updated": "06:54 PM"
+  }
+]

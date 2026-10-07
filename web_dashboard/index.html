@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Bed Monitoring System | Clinical Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M4.5 10.5C3.67 10.5 3 11.17 3 12s.67 1.5 1.5 1.5h15c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-15zM19 4h-2V2h-2v2H9V2H7v2H5c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2z'/></svg>">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-icon">
+          &#10010;
+        </div>
+        <div class="brand-titles">
+          <h1>HOSPITAL BED MONITORING</h1>
+          <p>Real-Time Bed Availability Dashboard &bull; Clinical Logistics</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="system-status" id="systemStatusBadge" style="cursor: pointer;" title="Click to view API connection status and diagnostics">
+          <span class="status-dot"></span>
+          <span id="systemStatusText">SYSTEM ONLINE</span>
+        </div>
+        <div class="sync-info" id="syncTimeLabel">
+          Last synchronized: --:--:--
+        </div>
+        <button class="btn btn-secondary btn-sm" id="refreshBtn" title="Synchronize latest data">
+          &#8635; Refresh
+        </button>
+        <button class="btn btn-outline-primary btn-sm" id="apiConfigBtn" title="Google Sheets API Settings">
+          &#9881; API Settings
+        </button>
+      </div>
+    </header>
+
+    <!-- Statistics Cards Grid -->
+    <section class="stats-grid" id="statsGrid">
+      <div class="stat-card total">
+        <span class="stat-label">Total Beds</span>
+        <span class="stat-value" id="statTotal">--</span>
+        <span class="stat-sub">Central Hospital Capacity</span>
+      </div>
+      <div class="stat-card available">
+        <span class="stat-label">Available</span>
+        <span class="stat-value" id="statAvailable" style="color: #166534;">--</span>
+        <span class="stat-sub" id="statAvailRate">--% Availability</span>
+      </div>
+      <div class="stat-card occupied">
+        <span class="stat-label">Occupied</span>
+        <span class="stat-value" id="statOccupied" style="color: #991b1b;">--</span>
+        <span class="stat-sub" id="statOccRate">--% Occupancy</span>
+      </div>
+      <div class="stat-card cleaning">
+        <span class="stat-label">Cleaning</span>
+        <span class="stat-value" id="statCleaning" style="color: #9a3412;">--</span>
+        <span class="stat-sub">Under Sanitization</span>
+      </div>
+      <div class="stat-card reserved">
+        <span class="stat-label">Reserved</span>
+        <span class="stat-value" id="statReserved" style="color: #6b21a8;">--</span>
+        <span class="stat-sub">Incoming Transfers</span>
+      </div>
+      <div class="stat-card maintenance">
+        <span class="stat-label">Maintenance</span>
+        <span class="stat-value" id="statMaintenance" style="color: #475569;">--</span>
+        <span class="stat-sub">Repairs &amp; Bio-Med</span>
+      </div>
+    </section>
+
+    <!-- Floor and Ward Visualization Panel -->
+    <section class="visualizer-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>&#127973;</span> Ward &amp; Floor Capacity Visualization
+        </div>
+        <div>
+          <button class="btn btn-outline-primary btn-sm" id="openReportBtn">
+            &#128196; View Clinical Report
+          </button>
+        </div>
+      </div>
+
+      <div class="floors-container">
+        <!-- Ground Floor -->
+        <div class="floor-column">
+          <div class="floor-title">
+            <span>Ground Floor (Level 0)</span>
+            <span class="floor-badge" id="floor0Badge">-- Avail</span>
+          </div>
+          <div id="floor0Wards">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+
+        <!-- First Floor -->
+        <div class="floor-column">
+          <div class="floor-title">
+            <span>First Floor (Level 1)</span>
+            <span class="floor-badge" id="floor1Badge">-- Avail</span>
+          </div>
+          <div id="floor1Wards">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+
+        <!-- Second Floor -->
+        <div class="floor-column">
+          <div class="floor-title">
+            <span>Second Floor (Level 2)</span>
+            <span class="floor-badge" id="floor2Badge">-- Avail</span>
+          </div>
+          <div id="floor2Wards">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-bar">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search Bed ID, Ward, Room, or Patient ID...">
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="floorFilter">Floor:</label>
+        <select class="filter-select" id="floorFilter">
+          <option value="all">All Floors</option>
+          <option value="0">Ground Floor (0)</option>
+          <option value="1">First Floor (1)</option>
+          <option value="2">Second Floor (2)</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="wardFilter">Ward:</label>
+        <select class="filter-select" id="wardFilter">
+          <option value="all">All Wards</option>
+          <option value="General Ward">General Ward</option>
+          <option value="Emergency">Emergency</option>
+          <option value="ICU">ICU</option>
+          <option value="Pediatric">Pediatric</option>
+          <option value="Surgical Ward">Surgical Ward</option>
+          <option value="Maternity">Maternity</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="statusFilter">Status:</label>
+        <select class="filter-select" id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="AVAILABLE">AVAILABLE</option>
+          <option value="OCCUPIED">OCCUPIED</option>
+          <option value="CLEANING">CLEANING</option>
+          <option value="RESERVED">RESERVED</option>
+          <option value="MAINTENANCE">MAINTENANCE</option>
+        </select>
+      </div>
+
+      <div>
+        <button class="btn btn-secondary btn-sm" id="resetFiltersBtn">Reset</button>
+      </div>
+    </section>
+
+    <!-- Action Bar & Bed Records Table -->
+    <div class="table-action-bar">
+      <div class="table-count-label" id="tableCountLabel">
+        Showing -- beds
+      </div>
+      <div class="table-quick-actions">
+        <button class="btn btn-primary btn-sm" id="quickAdmitBtn">
+          &#10010; Admit Patient
+        </button>
+        <button class="btn btn-secondary btn-sm" id="quickDischargeBtn">
+          &#10006; Discharge Patient
+        </button>
+        <button class="btn btn-secondary btn-sm" id="addBedModalBtn">
+          + Add Bed
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+      <div class="table-responsive">
+        <table class="bed-table">
+          <thead>
+            <tr>
+              <th>BED ID</th>
+              <th>WARD</th>
+              <th>FLOOR</th>
+              <th>ROOM</th>
+              <th>STATUS</th>
+              <th>PATIENT</th>
+              <th>UPDATED</th>
+              <th style="text-align: right;">ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="bedTableBody">
+            <!-- Rendered Dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-table-state" id="emptyState" style="display: none;">
+        <div class="empty-table-icon">&#128269;</div>
+        <h4>No matching beds found</h4>
+        <p>Try modifying your search query or status filter criteria.</p>
+      </div>
+    </div>
+
+    <!-- Lower Panel: Activity Log & C Bridge -->
+    <div class="dashboard-lower-grid">
+      <!-- Activity Log -->
+      <div class="log-panel">
+        <div class="section-header">
+          <div class="section-title">
+            <span>&#9201;</span> Recent Clinical Activity Log
+          </div>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Real-time transitions</span>
+        </div>
+        <ul class="log-list" id="activityLogList">
+          <!-- Rendered dynamically -->
+        </ul>
+      </div>
+
+      <!-- C Programming Architecture Guide Box -->
+      <div class="c-system-card">
+        <h3><span>&#9874;</span> Semester 3 C Core Engine</h3>
+        <p>The core business rules, structures, pointers, file persistence (<code>beds.txt</code>), and search/sorting algorithms are implemented in modular C.</p>
+        <div class="c-terminal-box">
+          $ cd hospital_bed_system<br>
+          $ gcc main.c bed.c patient.c search.c report.c file.c -o hospital_bed_system.exe<br>
+          $ ./hospital_bed_system.exe
+        </div>
+        <p style="margin-bottom: 0;">Use terminal menu for independent testing and viva demonstration.</p>
+      </div>
+    </div>
+
+  </div> <!-- End .app-container -->
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Bed Details & Management Modal -->
+  <div class="modal-backdrop" id="bedDetailsModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalBedIdTitle">Bed Details</h3>
+        <button class="modal-close-btn" data-close="bedDetailsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-item-label">Bed Identifier</div>
+            <div class="detail-item-val" id="detailBedId">--</div>
+          </div>
+          <div>
+            <div class="detail-item-label">Current Status</div>
+            <div class="detail-item-val" id="detailStatus">--</div>
+          </div>
+          <div>
+            <div class="detail-item-label">Ward Department</div>
+            <div class="detail-item-val" id="detailWard">--</div>
+          </div>
+          <div>
+            <div class="detail-item-label">Floor &amp; Room</div>
+            <div class="detail-item-val" id="detailFloorRoom">--</div>
+          </div>
+          <div>
+            <div class="detail-item-label">Assigned Patient</div>
+            <div class="detail-item-val" id="detailPatient">--</div>
+          </div>
+          <div>
+            <div class="detail-item-label">Last Updated</div>
+            <div class="detail-item-val" id="detailUpdated">--</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="detailNewStatus">Update Bed Status directly:</label>
+          <select class="form-select" id="detailNewStatus">
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="OCCUPIED">OCCUPIED (Use Admit Patient workflow)</option>
+            <option value="CLEANING">CLEANING</option>
+            <option value="RESERVED">RESERVED</option>
+            <option value="MAINTENANCE">MAINTENANCE</option>
+          </select>
+          <div class="form-help">Validates duplicate updates and sanitation compliance.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="bedDetailsModal">Close</button>
+        <button class="btn btn-outline-primary" id="modalAdmitBtn">Admit Patient</button>
+        <button class="btn btn-outline-primary" id="modalDischargeBtn">Discharge</button>
+        <button class="btn btn-primary" id="saveStatusBtn">Save Status</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Patient Admission Modal -->
+  <div class="modal-backdrop" id="admitModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">&#10010; Patient Admission</h3>
+        <button class="modal-close-btn" data-close="admitModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="admitPatientId">Patient ID *</label>
+          <input type="text" class="form-input" id="admitPatientId" placeholder="e.g. P1030" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="admitPatientName">Patient Full Name *</label>
+          <input type="text" class="form-input" id="admitPatientName" placeholder="e.g. Suresh Deshmukh" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="admitBedSelect">Select Available Bed *</label>
+          <select class="form-select" id="admitBedSelect">
+            <!-- Populated with available beds -->
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="admitModal">Cancel</button>
+        <button class="btn btn-primary" id="confirmAdmitBtn">Confirm Admission</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Patient Discharge Modal -->
+  <div class="modal-backdrop" id="dischargeModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">&#10006; Patient Discharge</h3>
+        <button class="modal-close-btn" data-close="dischargeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="dischargeIdentifier">Bed ID or Patient ID *</label>
+          <input type="text" class="form-input" id="dischargeIdentifier" placeholder="e.g. ICU302 or P1012" required>
+          <div class="form-help">Enter the Bed ID or Patient ID to discharge. Bed will transition to CLEANING.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="dischargeModal">Cancel</button>
+        <button class="btn btn-danger" id="confirmDischargeBtn">Process Discharge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Add Bed Modal -->
+  <div class="modal-backdrop" id="addBedModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">+ Add New Hospital Bed</h3>
+        <button class="modal-close-btn" data-close="addBedModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="addBedId">Bed Identifier *</label>
+          <input type="text" class="form-input" id="addBedId" placeholder="e.g. ICU317, G113" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addBedWard">Ward Department *</label>
+          <select class="form-select" id="addBedWard">
+            <option value="General Ward">General Ward</option>
+            <option value="Emergency">Emergency</option>
+            <option value="ICU">ICU</option>
+            <option value="Pediatric">Pediatric</option>
+            <option value="Surgical Ward">Surgical Ward</option>
+            <option value="Maternity">Maternity</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addBedFloor">Floor Level</label>
+          <select class="form-select" id="addBedFloor">
+            <option value="0">Ground Floor (0)</option>
+            <option value="1">First Floor (1)</option>
+            <option value="2">Second Floor (2)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addBedRoom">Room Code</label>
+          <input type="text" class="form-input" id="addBedRoom" placeholder="e.g. G05, ICU09">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addBedStatus">Initial Status</label>
+          <select class="form-select" id="addBedStatus">
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="RESERVED">RESERVED</option>
+            <option value="MAINTENANCE">MAINTENANCE</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="addBedModal">Cancel</button>
+        <button class="btn btn-primary" id="confirmAddBedBtn">Create Bed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Bed Availability Report Modal -->
+  <div class="modal-backdrop" id="reportModal">
+    <div class="modal-dialog" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 class="modal-title">&#128196; Hospital Bed Availability Report</h3>
+        <button class="modal-close-btn" data-close="reportModal">&times;</button>
+      </div>
+      <div class="modal-body" id="reportModalContent">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="reportModal">Close</button>
+        <button class="btn btn-primary" onclick="window.print()">Print / Export PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Google Sheets & API Settings Modal -->
+  <div class="modal-backdrop" id="apiConfigModal">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">&#9881; API Connection &amp; Diagnostics</h3>
+        <button class="modal-close-btn" data-close="apiConfigModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="apiEndpointInput">Google Apps Script Web App URL:</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="url" class="form-input" id="apiEndpointInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" style="flex: 1;">
+            <button class="btn btn-outline-primary" id="testApiBtn" type="button" title="Test if API responds correctly">
+              ⚡ Test Connection
+            </button>
+          </div>
+          <div class="form-help">Must be a deployed Web App URL ending with <code>/exec</code> (Access: Anyone).</div>
+        </div>
+
+        <!-- Diagnostic Feedback Card -->
+        <div id="diagnosticCard" style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-top: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="font-size: 0.85rem;" id="diagnosticTitle">Connection Status: Idle</strong>
+            <span id="diagnosticLatencyBadge" style="font-size: 0.75rem; font-family: monospace; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; display: none;">-- ms</span>
+          </div>
+          <p id="diagnosticMsg" style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.4;">
+            Click <strong>Test Connection</strong> to verify communication with your Google Apps Script endpoint.
+          </p>
+          <div id="diagnosticHelpBox" style="display: none; margin-top: 10px; padding: 8px 10px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; font-size: 0.78rem; color: #92400e;"></div>
+        </div>
+
+        <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <button class="btn btn-secondary btn-sm" id="disconnectApiBtn" type="button">
+            🔌 Disconnect (Use Offline Mode)
+          </button>
+          <button class="btn btn-secondary btn-sm" id="resetDemoDataBtn" type="button">
+            &#9851; Reset Local Data (64 beds)
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close="apiConfigModal">Close</button>
+        <button class="btn btn-primary" id="saveApiConfigBtn">Save &amp; Activate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
